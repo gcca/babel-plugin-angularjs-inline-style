@@ -1,0 +1,39 @@
+{
+  "name": "babel-plugin-angularjs-inline-style",
+  "description": "CSS scoping to AngularJS components",
+  "version": "0.0.0",
+  "author": "Gonzales Castillo, Cristhian Alberto",
+  "bugs": {
+    "url": "https://github.com/gcca/babel-plugin-angularjs-style-url/issues"
+  },
+  "dependencies": {
+    "css": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
+  },
+  "homepage": "https://github.com/gcca/css-scope#readme",
+  "keywords": [
+    "attribute",
+    "css",
+    "development",
+    "environment",
+    "frontend",
+    "html",
+    "javascript"
+  ],
+  "license": "GPL-2.0",
+  "main": "build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gcca/babel-plugin-angularjs-style-url.git"
+  },
+  "scripts": {
+    "build": "babel -d build/ --presets es2015 src/",
+    "prepublish": "npm run build",
+    "test": "mocha --compilers js:babel-core/register -r chai/register-expect -r test/presets"
+  }
+}
