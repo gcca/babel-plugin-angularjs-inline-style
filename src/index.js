@@ -20,6 +20,9 @@ function configCall(t, name, options) {
       };
       return $d;
     }]);
+    var style = document.createElement('style');
+    style.innerHTML = ${options}.style;
+    document.head.appendChild(style);
   }])`);
 }
 
