@@ -10,7 +10,7 @@ deploy:
     secure: NrMdyMauh5UeA0PnegGdcdWgn0/mp8HGEsXsCeokLp4vA6EHOHWJCj+D7XDI/ZzIkfWyvIMspR5KEDZGEi3eAuAHHZnwn0Dy59YR61DcdpCjW2052qB4BEaJe3PMZf6zDvctwtwcXiY16MVD9cF+t4R/lpj4b3h9LPitylbgKs2fzibxQt00vLAqT6zRvH/rT3dQMZ6oelZhgC3++OcEAujHU/ORXIU4+3Wu3Q2lEsQPojASjv5UfbmfZSJJdUcsytFupkkbJ9qs86vaeyMmnx37NrPHDO3+bcrllF2f+a1Bx+nONdXm4hpl2t4SiWMqRFYWnyWKGtJ2Bg2bfdbbQinc3/nLbcuS9XB6t4bc27Leru/Zw2z+9n9PTdaSkXqQ220sKs3FXz11E/e5ZUwUzb+nizXNf3FiVMzXcKZALksbcgIf92tLhJmE96ny7xnY1j8m9uRw0kb28XchcGXYugsfBXZsW9UrcH2jotnXmxwhIJA+ASPTKrn8ePSibe5nDFeAm+9uF5ulYljcmq6fwxywwFoyNWfw+pxiCpbyDG/q+Ukia+Bose6v1K9ZpzOp2psbGGVtVUMn3Yn7wuvxp+Y2dfSvG6Xr1pJmH8lNjhhkcduUXL47x84n4e/BcmFRu45Byo+4CfYUTn28IgqqfNCQZwSXJJURNAH36+rrVh8=
   email: anton.g88@gmail.com
   on:
-    repo: gcca/babel-plugin-angularjs-style-url
+    repo: gcca/babel-plugin-angularjs-inline-style
     tags: true
   provider: npm
   skip_cleanup: true
