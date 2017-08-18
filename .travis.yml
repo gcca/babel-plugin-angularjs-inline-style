@@ -1,13 +1,13 @@
 branches:
   except:
-    - experimental
-    - legacy
+  - experimental
+  - legacy
   only:
-    - master
-    - /^v\d+\.\d+\.\d+(-\d+)?$/
+  - master
+  - "/^v\\d+\\.\\d+\\.\\d+(-\\d+)?$/"
 deploy:
   api_key:
-    secure: NrMdyMauh5UeA0PnegGdcdWgn0/mp8HGEsXsCeokLp4vA6EHOHWJCj+D7XDI/ZzIkfWyvIMspR5KEDZGEi3eAuAHHZnwn0Dy59YR61DcdpCjW2052qB4BEaJe3PMZf6zDvctwtwcXiY16MVD9cF+t4R/lpj4b3h9LPitylbgKs2fzibxQt00vLAqT6zRvH/rT3dQMZ6oelZhgC3++OcEAujHU/ORXIU4+3Wu3Q2lEsQPojASjv5UfbmfZSJJdUcsytFupkkbJ9qs86vaeyMmnx37NrPHDO3+bcrllF2f+a1Bx+nONdXm4hpl2t4SiWMqRFYWnyWKGtJ2Bg2bfdbbQinc3/nLbcuS9XB6t4bc27Leru/Zw2z+9n9PTdaSkXqQ220sKs3FXz11E/e5ZUwUzb+nizXNf3FiVMzXcKZALksbcgIf92tLhJmE96ny7xnY1j8m9uRw0kb28XchcGXYugsfBXZsW9UrcH2jotnXmxwhIJA+ASPTKrn8ePSibe5nDFeAm+9uF5ulYljcmq6fwxywwFoyNWfw+pxiCpbyDG/q+Ukia+Bose6v1K9ZpzOp2psbGGVtVUMn3Yn7wuvxp+Y2dfSvG6Xr1pJmH8lNjhhkcduUXL47x84n4e/BcmFRu45Byo+4CfYUTn28IgqqfNCQZwSXJJURNAH36+rrVh8=
+    secure: MPuXT2pt2epMGq9JxbwFOdJwS6uioaPXTSEAGW0AvdyeOQSny+a5QRx77RBz1UdKzr8TU8Yszhs+IQ0C/+u2XeQmR/qIJ/BhcJLTSVPHeJYQSgCegIiopFY3sJtrZA0UL5nq/l3EMQLuJ642OA/RVrK/ZXv9a5Ug1SeZ4c0AeWjbfiyipX8UPijuUhPEBCPFxZLXVyoJKfdXV1JWafL+JUub9yuV8e2eyy/wYp/euXtfuJvbET9bIDjhzLVchVGJQS+ugyp+jIzSwoWdH5n4sYFA4OjcSO2Pku9SvaNErzpjCxcFtoHfXjRSZ/+YUTUc4T8ryj4tN9SZhJGItU0kHLuexhCHmewzPDOk6c0qO238WBc7uDePvKzFjjGbLIq8R3tNQ2kg+tHG9OzQTA/D4juhScnIqOfc7deCk8LQ5h/FkSdvxytDJafpFizIJqBEr/6oiK6b/ZDedWujYfaQgB4JxrpOQWXvci9PWTukrtjvKQ2zzp8zeQY+LTTPPo1aLTy/z9WACEOwzE0cohIJ3/Nn+ivEqCHu8tzuD9KlrVXhpJNN6oy5fEWjGGDECJ+Mmp2rGIFH2WbJvDcsfNboxMCBzQ49tC4cAlPx0/u0uXEuqiq4iUiNn3z7x9njQ59jmFTl6A1YQ78wl/g1cGpeaFoHHFwjVezRhdnF6VZjmmU=
   email: anton.g88@gmail.com
   on:
     repo: gcca/babel-plugin-angularjs-inline-style
