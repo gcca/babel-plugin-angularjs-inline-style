@@ -11,12 +11,10 @@ function isComponent(path) {
 }
 
 function configCall(t, name, options) {
-  const snake = name.replace(/([A-Z])/, '-$1').toLowerCase();
-  return t.identifier(`config(['$provide', function($p) {
+  return t.Identifier(`config(['$provide', function($p) {
     $p.decorator('${name}Directive', ['$delegate', function($d) {
       $d[0].compile = function(tE) {
-        var r = /${snake}\\[(_ng-[\\w_-]+)\\]/.exec(${options}.style);
-        if (r) tE.attr(r[1], '');
+        tE.attr(${options}.styleScope, '');
       };
       return $d;
     }]);
@@ -62,12 +60,14 @@ export default function({types: t}) {
         if (filename && selector) {
           if (!text) {
             const style = fs.readFileSync(filename).toString();
-            const ast = css.parse(style);
-            text = css.stringify(encapsulate(ast, selector));
-          }
-          if ('styleUrl' == path.node.key.name) {
+            const { ast, id } = encapsulate(css.parse(style), selector);
+            text = css.stringify(ast);
+
             path.node.key.name = 'style';
             path.node.value.value = text;
+            const styleScope = t.ObjectProperty(t.Identifier('styleScope'),
+                                                t.StringLiteral(id))
+            path.insertAfter(styleScope);
           }
         }
       },

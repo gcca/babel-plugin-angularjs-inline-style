@@ -63,9 +63,7 @@ describe('#encapsulate', () => {
   });
 });
 
-
 function encapsulateTestInfo(style) {
   const ast = css.parse(style);
-  return css.stringify(encapsulate(ast, 'testInfo'));
+  return css.stringify(encapsulate(ast, 'testInfo').ast);
 }
-
