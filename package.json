@@ -4,7 +4,7 @@
   "version": "0.0.0-2",
   "author": "Gonzales Castillo, Cristhian Alberto",
   "bugs": {
-    "url": "https://github.com/gcca/babel-plugin-angularjs-style-url/issues"
+    "url": "https://github.com/gcca/babel-plugin-angularjs-inline-style/issues"
   },
   "dependencies": {
     "css": "^2.2.1"
@@ -15,7 +15,7 @@
     "chai": "^4.1.1",
     "mocha": "^3.5.0"
   },
-  "homepage": "https://github.com/gcca/css-scope#readme",
+  "homepage": "https://github.com/gcca/babel-angularjs-inline-style#readme",
   "keywords": [
     "attribute",
     "css",
@@ -29,7 +29,7 @@
   "main": "build/index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gcca/babel-plugin-angularjs-style-url.git"
+    "url": "git+ssh://git@github.com/gcca/babel-plugin-angularjs-inline-style.git"
   },
   "scripts": {
     "build": "babel -d build/ --presets es2015 src/",
