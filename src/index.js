@@ -3,8 +3,6 @@ import css from 'css';
 
 import { encapsulate } from './encapsulate';
 
-let filename, selector, text;
-
 function isComponent(path) {
   const property = path.node.callee.property;
   return property && 'component' == property.name;
@@ -52,23 +50,16 @@ export default function({types: t}) {
       },
       ObjectProperty(path) {
         if ('styleUrl' == path.node.key.name) {
-          filename = path.node.value.value;
-        }
-        if ('selector' == path.node.key.name) {
-          selector = path.node.value.value;
-        }
-        if (filename && selector) {
-          if (!text) {
-            const style = fs.readFileSync(filename).toString();
-            const { ast, id } = encapsulate(css.parse(style), selector);
-            text = css.stringify(ast);
+          const filename = path.node.value.value;
+          const style = fs.readFileSync(filename).toString();
+          const { ast, id } = encapsulate(css.parse(style));
+          const text = css.stringify(ast);
 
-            path.node.key.name = 'style';
-            path.node.value.value = text;
-            const styleScope = t.ObjectProperty(t.Identifier('styleScope'),
-                                                t.StringLiteral(id))
-            path.insertAfter(styleScope);
-          }
+          path.node.key.name = 'style';
+          path.node.value.value = text;
+          const styleScope = t.ObjectProperty(t.Identifier('styleScope'),
+                                              t.StringLiteral(id))
+          path.insertAfter(styleScope);
         }
       },
     },
