@@ -13,7 +13,7 @@ describe('#encapsulate', () => {
       `);
     });
 
-    it('should snakify `testInfo` to encapsulate', () => {
+    it('should kebabify `testInfo` to encapsulate', () => {
       expect(encapsulated).to.match(/\[_ng-.*\] .extra/);
     });
   });
@@ -21,7 +21,7 @@ describe('#encapsulate', () => {
   describe('when we have nested classes', () => {
     function generateCssWith(nestedSymbol) {
         return encapsulateTestInfo(`
-        ${nestedSymbol} .extra {
+        .main ${nestedSymbol} .extra {
           display: none;
         }
         `);
@@ -33,11 +33,12 @@ describe('#encapsulate', () => {
           encapsulated = generateCssWith(nestedSymbol);
         });
 
-        it('should snakify `testInfo`', () => {
+        it('should kebabify `testInfo`', () => {
           if ('+' == nestedSymbol) {
             nestedSymbol = '\\+';
           }
-          const pattern = `\\[_ng-.*\\] ${nestedSymbol} .extra`;
+          const pattern =
+            `\\[_ng-.*\\] .main ${nestedSymbol} \\[_ng-.*] .extra`;
           const expression = new RegExp(pattern);
           expect(encapsulated).to.match(expression);
         });
@@ -54,8 +55,9 @@ describe('#encapsulate', () => {
       `);
     });
 
-    it('should snakify `testInfo`', () => {
-      const pattern = ('\\[_ng-.*\\] > .extra,\n\\[_ng-.*\\] textarea');
+    it('should kebabify `testInfo`', () => {
+      const pattern =
+        '\\[_ng-.*\\] > \\[_ng.*\\] .extra,\n\\[_ng-.*\\] textarea';
       const expression = new RegExp(pattern);
       expect(encapsulated).to.match(expression);
     });
