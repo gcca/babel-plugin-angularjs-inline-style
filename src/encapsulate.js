@@ -2,7 +2,7 @@ const nesters = ['>', '+', '~'];
 const sRe = /\s+/;
 
 export function encapsulate(ast) {
-  const id = `_ng-${sid()}`;
+  const id = sid();
   return {
     id,
     ast: attribute(ast, id),
@@ -15,8 +15,9 @@ function attribute(ast, sid) {
     if ('selectors' == key) {
       node[key] = rule.map(selector =>
         selector.split(sRe).map(token =>
-          (nesters.includes(token) ? token : `[${sid}] ${token}`)
-            .replace(' :host', '')
+          nesters.includes(token)
+            ? token
+            : ':host' == token ? `[_ng-${sid}-h]` : `[_ng-${sid}] ${token}`
         ).join(' '));
     } else if (Array.isArray(rule) || rule instanceof Object) {
       node[key] = attribute(rule, sid);

@@ -15,9 +15,7 @@ function isComponent(path) {
 function configCall(t, name, options) {
   return t.Identifier(`config(['$provide', function($p) {
     $p.decorator('${name}Directive', ['$delegate', function($d) {
-      $d[0].compile = function(tE) {
-        tE.attr(${options}.styleScope, '');
-      };
+      $d[0].compile = ${options}.styling;
       return $d;
     }]);
     var style = document.createElement('style');
@@ -76,8 +74,13 @@ export default function({types: t}) {
 
           path.node.key.name = 'style';
           path.node.value.value = text;
-          const styleScope = t.ObjectProperty(t.Identifier('styleScope'),
-                                              t.StringLiteral(id))
+          const styling =
+            'function(tE) {'
+            + ` tE.attr('_ng-${id}', '');`
+            + ` tE.attr('_ng-${id}-h', '');`
+            + ` }`;
+          const styleScope = t.ObjectProperty(t.Identifier('styling'),
+                                              t.Identifier(styling))
           path.insertAfter(styleScope);
         }
       },
