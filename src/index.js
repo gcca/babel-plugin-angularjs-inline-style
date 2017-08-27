@@ -1,3 +1,7 @@
+import { dirname, join } from 'path';
+
+import 'better-log/install';
+
 import * as fs from 'fs';
 import css from 'css';
 
@@ -48,10 +52,25 @@ export default function({types: t}) {
           }
         }
       },
-      ObjectProperty(path) {
+      ObjectProperty(path, state) {
         if ('styleUrl' == path.node.key.name) {
-          const filename = path.node.value.value;
-          const style = fs.readFileSync(filename).toString();
+          const basePath = state.opts.basePath
+                             || dirname(state.file.opts.filename);
+          const filename = join(basePath, path.node.value.value);
+
+          let style;
+          try {
+            style = fs.readFileSync(filename).toString();
+          } catch(error) {
+            if ('ENOENT' == error.code) {
+              console.error(`\tERROR: open file '${error.path}'`);
+            } else {
+              console.error('Unkown inlineStyle error');
+              throw error;
+            }
+            return;
+          }
+
           const { ast, id } = encapsulate(css.parse(style));
           const text = css.stringify(ast);
 
