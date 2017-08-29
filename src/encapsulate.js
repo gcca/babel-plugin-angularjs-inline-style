@@ -1,6 +1,3 @@
-const nesters = ['>', '+', '~'];
-const sRe = /\s+/;
-
 export function encapsulate(ast) {
   const id = sid();
   return {
@@ -9,18 +6,13 @@ export function encapsulate(ast) {
   };
 }
 
-function attribute(ast, sid) {
+function attribute(ast, id) {
   return Object.keys(ast).reduce((node, key) => {
     const rule = ast[key];
     if ('selectors' == key) {
-      node[key] = rule.map(selector =>
-        selector.split(sRe).map(token =>
-          nesters.includes(token)
-            ? token
-            : ':host' == token ? `[_ng-${sid}-h]` : `[_ng-${sid}] ${token}`
-        ).join(' '));
+      node[key] = rule.map(s => `[_ng-${id}]${':host' == s ? '' : ` ${s}`}`);
     } else if (Array.isArray(rule) || rule instanceof Object) {
-      node[key] = attribute(rule, sid);
+      node[key] = attribute(rule, id);
     } else {
       node[key] = rule;
     }

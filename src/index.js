@@ -74,11 +74,7 @@ export default function({types: t}) {
 
           path.node.key.name = 'style';
           path.node.value.value = text;
-          const styling =
-            'function(tE) {'
-            + ` tE.attr('_ng-${id}', '');`
-            + ` tE.attr('_ng-${id}-h', '');`
-            + ` }`;
+          const styling = `function(e) { e.attr('_ng-${id}', ''); }`;
           const styleScope = t.ObjectProperty(t.Identifier('styling'),
                                               t.Identifier(styling))
           path.insertAfter(styleScope);
