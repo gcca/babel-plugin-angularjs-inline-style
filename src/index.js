@@ -49,34 +49,38 @@ export default function({types: t}) {
       },
       ObjectProperty(path, state) {
         if ('styleUrl' == path.node.key.name) {
-          const basePath = state.opts.basePath
-                             || dirname(state.file.opts.filename);
-          const filename = join(basePath, path.node.value.value);
-
-          let style;
-          try {
-            style = fs.readFileSync(filename).toString();
-          } catch(error) {
-            if ('ENOENT' == error.code) {
-              console.error(`\tERROR: open file '${error.path}'`);
-            } else {
-              console.error('Unkown inlineStyle error');
-              throw error;
-            }
-            return;
-          }
-
-          const { ast, id } = encapsulate(css.parse(style));
-          const text = css.stringify(ast);
-
-          path.node.key.name = 'style';
-          path.node.value.value = text;
-          const styling = `function(e) { e.attr('_ng-${id}', ''); }`;
-          const styleScope = t.ObjectProperty(t.Identifier('styling'),
-                                              t.Identifier(styling))
-          path.insertAfter(styleScope);
+          const filename = path.node.value.value;
+          const style = readStyleFile(filename, state);
+          addStylingProperty(path, t, style);
         }
       },
     },
   };
+}
+
+function addStylingProperty(path, t, style) {
+  const { ast, id } = encapsulate(css.parse(style));
+  const text = css.stringify(ast);
+
+  path.node.key.name = 'style';
+  path.node.value.value = text;
+  const styling = `function(e) { e.attr('_ng-${id}', ''); }`;
+  const styleScope = t.ObjectProperty(t.Identifier('styling'),
+                                      t.Identifier(styling))
+  path.insertAfter(styleScope);
+}
+
+function readStyleFile(filename, state) {
+  const basePath = state.opts.basePath || dirname(state.file.opts.filename);
+  const relativeFilename = join(basePath, filename);
+  try {
+    return fs.readFileSync(relativeFilename).toString();
+  } catch(error) {
+    if ('ENOENT' == error.code) {
+      console.error(`Error: open file '${error.path}'`);
+    } else {
+      console.error('Error: Unkown inlineStyle error');
+    }
+    throw error;
+  }
 }
