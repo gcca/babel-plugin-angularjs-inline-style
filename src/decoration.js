@@ -23,5 +23,5 @@ export function isComponent(path) {
 }
 
 export function isntDecorated(name) {
-  return STACK.includes(name.value);
+  return !STACK.includes(name.value);
 }
