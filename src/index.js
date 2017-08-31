@@ -77,10 +77,15 @@ function readStyleFile(filename, state) {
     return fs.readFileSync(relativeFilename).toString();
   } catch(error) {
     if ('ENOENT' == error.code) {
-      console.error(`Error: open file '${error.path}'`);
+      console.error(`StyleURL Error: open file '${filename}'
+ - base path: ${basePath}
+ - error path: ${error.path}
+ - relative: ${relativeFilename}
+      `);
     } else {
       console.error('Error: Unkown inlineStyle error');
+      throw error;
     }
-    throw error;
+    process.exit();
   }
 }
