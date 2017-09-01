@@ -3,16 +3,28 @@ import { configCall, isComponent, isntDecorated }
 import { addStylingProperty, isStyleUrl, isStylized, readStyle }
   from './styling';
 
+const STACK = [];
+
 export default function({types: t}) {
   return {
     visitor: {
-      CallExpression(path) {
+      CallExpression(path, state) {
         if (isComponent(path)) {
           const args = path.node.arguments
           const name = args[0];
           const options = args[1];
-          if (t.isStringLiteral(name) && isntDecorated(name)) {
-            const config = configCall(t, name.value);
+          if (t.isStringLiteral(name)) {
+            const centinel = `${state.file.opts.filename}-${name.value}`;
+            if (STACK.includes(centinel)) return;
+            STACK.push(centinel);
+            let component;
+            if (t.isIdentifier(options)) {
+              component = options.name;
+            }
+            if (t.isMemberExpression(options)) {
+              component = `${options.object.name}.${options.property.name}`;
+            }
+            const config = configCall(t, name.value, component);
             const member = t.MemberExpression(path.node, config);
             path.find(p => p.isExpression()).replaceWith(member);
           }
